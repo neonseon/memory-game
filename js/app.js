@@ -1,7 +1,15 @@
+
+
+let moves = 0;
+const stars = 3;
+const startTime = 0;
+const endingTime = 0;
+var flippedCards = [];
+
 /*
  * Create a list that holds all of your cards
  */
-
+const cards = document.body.firstChild.nextElementSibling.childNodes[5].getElementsByTagName('i');
 
 /*
  * Display the cards on the page
@@ -25,6 +33,14 @@ function shuffle(array) {
     return array;
 }
 
+// All cards start flipped over
+function begin() {
+	for (const card of cards) {
+		card.parentNode.className = 'card';
+	}	
+}
+
+begin();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +52,56 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+const deck = document.body.firstChild.nextElementSibling.childNodes[5];
+
+deck.addEventListener('click', function() {
+	flipOverCard();
+	checkCards();
+	moves++;
+	console.log(event.target);
+})
+
+function flipOverCard() {
+	if (event.target.tagName == 'LI' && event.target.className != 'card match') { // nothing happens if user clicks the icon instead of the card
+		event.target.className = 'card open show';
+		flippedCards.push(event.target.childNodes[1]);
+	}
+}
+
+function checkCards() {
+	if (flippedCards.length >= 2 && flippedCards.length % 2 == 0) { // doesn't start working until there are at least 2 cards and only attempts matching on pairs
+		if (flippedCards[flippedCards.length-1].className === flippedCards[flippedCards.length-2].className) {
+			flippedCards[flippedCards.length-1].parentElement.className = 'card match';
+			flippedCards[flippedCards.length-2].parentElement.className = 'card match';
+		} else {
+			flippedCards[flippedCards.length-1].parentElement.className = 'card mismatch';
+			flippedCards[flippedCards.length-2].parentElement.className = 'card mismatch';
+			setTimeout(function(){ flipMismatch(); }, 1000);				
+		}
+	} 
+	if (flippedCards.length == 16) {
+		// stop timer
+		// popup module with congrats and play again button
+		// get star rating
+		// get number of moves/clicks
+		//setTimeout(function(){ alert('Congratulations!'); }, 3000);
+		alert('Congratulations!');
+	}
+}
+
+function flipMismatch() {
+	flippedCards[flippedCards.length-1].parentElement.className = 'card';
+	flippedCards[flippedCards.length-2].parentElement.className = 'card';	
+	flippedCards.pop();
+	flippedCards.pop();	
+}
+
+function starRating() {
+	
+}
+
+//restart
+document.getElementsByClassName('restart').addEventListener('click', function() {
+	begin();
+})
