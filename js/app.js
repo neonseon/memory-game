@@ -74,27 +74,32 @@ restart.addEventListener('click', function() {
 	begin();
 })
 
-// This function calls other functions to flip over the card, check the cards, capture and update the moves, and adjust stars based on performance
+// This function calls other functions to flip over the card, check the cards, capture and update the moves,
+// and adjust stars based on performance
 deck.addEventListener('click', function() {
 	flipOverCard();
 	updateMoves();
 	starAdjustment();
 })
 
-// This function first makes sure that the LI is targeted and that it is not performed on a card that is already matched/turned over.
-// It then adds the flipped cards to the flippedCards array. Flipped over cards should match the number of moves.
+// This function first makes sure that the LI is targeted and that it is not performed on a card that is already matched
+// or turned over. It then adds the flipped cards to the flippedCards array. Flipped over cards should match the number
+// of moves.
 function flipOverCard() {
-	if (event.target.tagName == 'LI' && event.target.className != 'card match') { // nothing happens if user clicks the icon instead of the card
+	// nothing happens if user clicks the icon instead of the card
+	if (event.target.tagName == 'LI' && event.target.className != 'card match') {
 		event.target.className = 'card open show';
-		moves++; // with every qualified flip, the move is captured - not captured if they click an open matched card by accident
+		// with every qualified flip, the move is captured - not captured if they click an open matched card by accident
+		moves++;
 		flippedCards.push(event.target.firstElementChild);
 		checkCards();
 	}
 }
 
-// This function checks the cards only if two have been flipped over. It compares the class of the I tags last two cards in the flippedCards array to determine a
-// match. If there is a match, a new class is assigned them to turn them green, and they are pushed to the pairedMatches array and the function is directed to run
-// the cardsMatch function, otherwise it will run the flipMismatch function.
+// This function checks the cards only if two have been flipped over. It compares the class of the I tags last two cards
+// in the flippedCards array to determine a match. If there is a match, a new class is assigned them to turn them green,
+// and they are pushed to the pairedMatches array and the function is directed to run the cardsMatch function,
+// otherwise it will run the flipMismatch function.
 function checkCards() {
 	if (flippedCards.length >= 2 && flippedCards.length % 2 == 0) { // doesn't start working until there are at least 2 cards and only attempts matching on pairs
 		if (flippedCards[flippedCards.length-1].className === flippedCards[flippedCards.length-2].className) {
@@ -117,9 +122,11 @@ function cardsMatch() {
 		clearTimeout(time); // stop timer
 		// popup module with congrats and play again button, get star rating, get number of moves/clicks
 		modal.style.display = 'block';
-		document.querySelector('.modal-content p').innerHTML = 'CONGRATULATIONS!<p>You won in ' + moves + ' moves with ' + starRating +
-															   ' stars and a time of ' + mins + ':' + ((seconds < 10) ? '0' + seconds : seconds) + '!</p>';
-		const btn = document.getElementById('playAgain'); // When the user clicks on the button, they can play again and the modal will disappear
+		document.querySelector('.modal-content p').innerHTML = 'CONGRATULATIONS!<p>You won in ' + moves + ' moves with '
+																+ starRating + ' stars and a time of ' + mins + ':' +
+																((seconds < 10) ? '0' + seconds : seconds) + '!</p>';
+		// When the user clicks on the button, they can play again and the modal will disappear
+		const btn = document.getElementById('playAgain');
 		btn.onclick = function() {
 	    modal.style.display = 'none';
 	    begin();
@@ -133,7 +140,8 @@ function flipMismatch() {
 	flippedCards[flippedCards.length-2].parentElement.className = 'card';
 }
 
-// This function determines how the user's performance will be rated based on their number of moves halfway through all matches, and at all matches.
+// This function determines how the user's performance will be rated based on their number of moves halfway through
+// all matches, and at all matches.
 function starAdjustment() {
 	if ((moves > 18 && pairedMatches.length < 8) || (moves > 32 && pairedMatches.length < 16)) {
 		stars.lastElementChild.firstElementChild.className = 'fa fa-star-o';
