@@ -46,7 +46,6 @@ function shuffle(array) {
     return array;
 }
 
-
 // Take the shuffled order of cards and build the HTML for the cards
 function buildHTML(array) {
   for (let i = 0; i < array.length; i++) {
@@ -158,7 +157,7 @@ function reset() {
   document.querySelector('#seconds').textContent = '00';
 }
 
-//
+// Timer function modified from Simple Javascript Timer by Paul Brown at https://codepen.io/PaulBrUK1972/pen/zAbpg
 function startTimer(){
   time = setTimeout(function() {
     seconds++;
@@ -187,15 +186,11 @@ function startTimer(){
   }, 1000);
 }
 
-// Get the modal that pops up once the user matches all cards
-const modal = document.getElementById('winModal');
-
-// Get the <span> element that closes the modal
-const span = document.getElementsByClassName('close')[0];
-
-// When the user clicks on <span> (x), close the modal
+// Modal functionality modified from https://www.w3schools.com/howto/howto_css_modals.asp
+const modal = document.getElementById('winModal'); // Get the modal that pops up once the user matches all cards
+const span = document.getElementsByClassName('close')[0]; // Get the <span> element that closes the modal
 span.onclick = function() {
-  modal.style.display = 'none';
+  modal.style.display = 'none'; // When the user clicks on <span> (x), close the modal
 }
 
 // When the user clicks anywhere outside of the modal, close it
