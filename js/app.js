@@ -122,9 +122,10 @@ function cardsMatch() {
 		clearTimeout(time); // stop timer
 		// popup module with congrats and play again button, get star rating, get number of moves/clicks
 		modal.style.display = 'block';
-		document.querySelector('.modal-content p').innerHTML = 'CONGRATULATIONS!<p>You won in ' + moves + ' moves with '
-																+ starRating + ' stars and a time of ' + mins + ':' +
-																((seconds < 10) ? '0' + seconds : seconds) + '!</p>';
+		document.querySelector('.modal-content p').innerHTML =
+			`CONGRATULATIONS!<p>You won in ${moves} moves with ${starRating} stars and a time of
+			${mins < 1 ? `0${mins}` : `${mins}`}:${seconds < 10 ? `0${seconds}` : `${seconds}`}!</p>`;
+
 		// When the user clicks on the button, they can play again and the modal will disappear
 		const btn = document.getElementById('playAgain');
 		btn.onclick = function() {
