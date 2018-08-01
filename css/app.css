@@ -69,6 +69,7 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    pointer-events: none;
 }
 
 .deck .card.show {
@@ -79,12 +80,14 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    pointer-events: none;
 }
 
 .deck .card.mismatch {
     cursor: default;
     background: #c00;
     font-size: 33px;
+    pointer-events: none;
 }
 
 /*

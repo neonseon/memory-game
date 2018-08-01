@@ -81,7 +81,8 @@ deck.addEventListener('click', function() {
 	starAdjustment();
 })
 
-// This function first makes sure that the LI is targeted and that it is not performed on a card that is already matched/turned over. It then adds the flipped cards to the flippedCards array. Flipped over cards should match the number of moves.
+// This function first makes sure that the LI is targeted and that it is not performed on a card that is already matched/turned over.
+// It then adds the flipped cards to the flippedCards array. Flipped over cards should match the number of moves.
 function flipOverCard() {
 	if (event.target.tagName == 'LI' && event.target.className != 'card match') { // nothing happens if user clicks the icon instead of the card
 		event.target.className = 'card open show';
@@ -91,7 +92,9 @@ function flipOverCard() {
 	}
 }
 
-// This function checks the cards only if two have been flipped over. It compares the class of the I tags last two cards in the flippedCards array to determine a match. If there is a match, a new class is assigned them to turn them green, and they are pushed to the pairedMatches array and the function is directed to run the cardsMatch function, otherwise it will run the flipMismatch function.
+// This function checks the cards only if two have been flipped over. It compares the class of the I tags last two cards in the flippedCards array to determine a
+// match. If there is a match, a new class is assigned them to turn them green, and they are pushed to the pairedMatches array and the function is directed to run
+// the cardsMatch function, otherwise it will run the flipMismatch function.
 function checkCards() {
 	if (flippedCards.length >= 2 && flippedCards.length % 2 == 0) { // doesn't start working until there are at least 2 cards and only attempts matching on pairs
 		if (flippedCards[flippedCards.length-1].className === flippedCards[flippedCards.length-2].className) {
@@ -99,11 +102,11 @@ function checkCards() {
 			flippedCards[flippedCards.length-2].parentElement.className = 'card match';
 			pairedMatches.push(flippedCards[flippedCards.length-1]);
 			pairedMatches.push(flippedCards[flippedCards.length-2]);
-			setTimeout(function(){ cardsMatch(); }, 500);
+			setTimeout(function(){ cardsMatch(); }, 300);
 		} else {
 			flippedCards[flippedCards.length-1].parentElement.className = 'card mismatch';
 			flippedCards[flippedCards.length-2].parentElement.className = 'card mismatch';
-			setTimeout(function(){ flipMismatch(); }, 500);
+			setTimeout(function(){ flipMismatch(); }, 300);
 		}
 	}
 }
@@ -114,7 +117,8 @@ function cardsMatch() {
 		clearTimeout(time); // stop timer
 		// popup module with congrats and play again button, get star rating, get number of moves/clicks
 		modal.style.display = 'block';
-		document.querySelector('.modal-content p').innerHTML = 'CONGRATULATIONS!<p>You won in ' + moves + ' moves with ' + starRating + ' stars and a time of ' + mins + ':' + ((seconds < 10) ? '0' + seconds : seconds) + '!</p>';
+		document.querySelector('.modal-content p').innerHTML = 'CONGRATULATIONS!<p>You won in ' + moves + ' moves with ' + starRating +
+															   ' stars and a time of ' + mins + ':' + ((seconds < 10) ? '0' + seconds : seconds) + '!</p>';
 		const btn = document.getElementById('playAgain'); // When the user clicks on the button, they can play again and the modal will disappear
 		btn.onclick = function() {
 	    modal.style.display = 'none';
